@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block title %}Create Task{% endblock %}
+
+{% block content %}
+  {% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+  <div class="mt-5">
+    <div class="card shadow-lg p-4 mx-auto mt-5" style="max-width: 500px; border-radius: 10px;">
+      <h1 class="h4 mb-4 text-center font-weight-bold">Create Task</h1>
+      <form action="/create" method="post">
+        <!-- Task Name -->
+        <div class="form-floating mb-3">
+          <input type="text" id="name" name="name" class="form-control" placeholder="Task Name" required>
+          <label for="name">Task Name</label>
+        </div>
+
+        <!-- Deadline -->
+        <div class="form-floating mb-3">
+          <input type="datetime-local" id="deadline" name="deadline" class="form-control" placeholder="Deadline" required>
+          <label for="deadline">Deadline</label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button class="btn btn-primary w-100 py-2" type="submit" style="border-radius: 20px;">Add Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{% block title %}Reschedule Task{% endblock %}
+
+{% block content %}
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+  <div class="mt-5">
+    <div class="card shadow-lg p-4 mx-auto mt-5" style="max-width: 500px; border-radius: 10px;">
+      <h1 class="h4 mb-4 text-center font-weight-bold">Reschedule Task</h1>
+      {% if tasks %}
+        <div class="accordion" id="tasksAccordion">
+          {% for task in tasks %}
+          <div class="accordion-item" style="min-width: 300px;">
+              <h2 class="accordion-header" id="heading-{{ task.name }}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ task.name }}">
+                      {{ task.name }}
+                  </button>
+              </h2>
+              <div id="collapse-{{ task.name }}" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                      <form method="POST" action="/reschedule">
+                          <input type="hidden" name="task_name" value="{{ task.name }}">
+                          <div class="form-group">
+                              <label for="new-deadline-{{ task.name }}">New Deadline</label>
+                              <input type="datetime-local" id="new-deadline-{{ task.name }}" name="new_deadline" class="form-control" value="{{ task.deadline }}" required>
+                          </div>
+                          <button type="submit" class="btn btn-primary mt-2">Save</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>You have no upcoming tasks.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
